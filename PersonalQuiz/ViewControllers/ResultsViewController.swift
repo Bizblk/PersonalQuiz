@@ -19,37 +19,36 @@ class ResultsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print(answers.count)
-        self.navigationItem.hidesBackButton = true
         
+        navigationItem.hidesBackButton = true
         pollResult()
         
     }
     
     
-    
     private func pollResult() {
-
-        var resultDic = [AnimalType: Int]()
+        
+        var resultDictionary = [AnimalType: Int]()
         
         for answer in answers {
             switch answer.type {
             case .cat:
-                resultDic[.cat, default: 0] += 1
+                resultDictionary[.cat, default: 0] += 1
             case .dog:
-                resultDic[.dog, default: 0] += 1
+                resultDictionary[.dog, default: 0] += 1
             case .rabbit:
-                resultDic[.rabbit, default: 0] += 1
+                resultDictionary[.rabbit, default: 0] += 1
             case .turtle:
-                resultDic[.turtle, default: 0] += 1
+                resultDictionary[.turtle, default: 0] += 1
             }
         }
-        print(resultDic.count)
-        resultDic = resultDic.filter { $0.value == resultDic.values.max() }
-        print(resultDic)
-        resultLable.text = String((resultDic.first?.key.rawValue)!)
-        definitionLabel.text = resultDic.first?.key.definition
+        
+        resultDictionary = resultDictionary.filter { $0.value == resultDictionary.values.max() }
+        
+        if let textLabel = resultDictionary.first?.key.rawValue {
+            resultLable.text = String(textLabel)
+        }
+        definitionLabel.text = resultDictionary.first?.key.definition
     }
-
 }
 
